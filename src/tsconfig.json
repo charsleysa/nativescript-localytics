@@ -15,10 +15,11 @@
         "allowUnusedLabels": false,
         "noEmitHelpers": true,
         "noEmitOnError": false,
-        "noImplicitAny": false,
+        "noImplicitAny": true,
         "noImplicitReturns": true,
         "noImplicitUseStrict": false,
-        "noFallthroughCasesInSwitch": true
+        "noFallthroughCasesInSwitch": true,
+        "strictNullChecks": true
     },
     "exclude": [
         "node_modules"

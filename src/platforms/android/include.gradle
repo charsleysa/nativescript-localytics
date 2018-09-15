@@ -4,8 +4,21 @@ android {
 	
 }
 
+repositories {
+    maven {
+        url 'https://maven.localytics.com/public'
+    }
+}
+
 dependencies {
     // Describe plugin native Android dependencies like
 	// compile "groupName:pluginName:ver" 
     // EXAMPLE: compile "com.facebook.fresco:fresco:0.9.0+"
+    def supportVer = "27.1.1";
+    if(project.hasProperty("supportVersion")) {
+       supportVer = supportVersion
+    }
+    compile "com.android.support:support-v4:$supportVer"
+    compile 'com.google.android.gms:play-services-ads:11.4.2'
+    compile 'com.localytics.android:library:5.2+'
 }
