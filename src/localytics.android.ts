@@ -57,12 +57,12 @@ class LocalyticsAndroid implements LocalyticsDef {
 
     public static integrate() {
         Localytics.integrate(application.android.context);
-        Localytics.setInAppMessageDisplayActivity(application.android.foregroundActivity);
+        Localytics.setInAppMessageDisplayActivity(application.android.startActivity);
     }
 
     public static autoIntegrate() {
         Localytics.autoIntegrate(application.android.context);
-        Localytics.setInAppMessageDisplayActivity(application.android.foregroundActivity);
+        Localytics.setInAppMessageDisplayActivity(application.android.startActivity);
     }
 
     public static upload() {

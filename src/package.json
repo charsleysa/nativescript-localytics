@@ -1,7 +1,7 @@
 {
     "name": "nativescript-localytics",
-    "version": "0.0.1",
-    "description": "Your awesome NativeScript plugin.",
+    "version": "0.0.3",
+    "description": "NativeScript Localytics",
     "main": "localytics",
     "typings": "index.d.ts",
     "nativescript": {
@@ -31,11 +31,12 @@
         "NativeScript",
         "JavaScript",
         "Android",
-        "iOS"
+        "iOS",
+        "Localytics"
     ],
     "author": {
-        "name": "Your Name",
-        "email": "youremail@yourdomain.com"
+        "name": "Stefan Charsley",
+        "email": "charsleysa@gmail.com"
     },
     "bugs": {
         "url": "https://github.com/charsleysa/nativescript-localytics/issues"

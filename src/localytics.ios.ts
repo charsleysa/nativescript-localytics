@@ -13,7 +13,7 @@ import {
 
 declare const Localytics: any;
 
-class LocalyticsIOS extends LocalyticsDef {
+class LocalyticsIOS implements LocalyticsDef {
 
     /*******************
      * Integration
@@ -70,13 +70,10 @@ class LocalyticsIOS extends LocalyticsDef {
         Localytics.tagEventWithEventNameAttributesCustomerValueIncrease(event, attr, customerValueIncrease);
     }
 
-    // A standard event to tag a single item purchase event (after the action has occurred)
-    // itemName = The name of the item purchased (optional, can be null)
-    // itemId = A unique identifier of the item being purchased, such as a SKU (optional, can be null)
-    // itemType = The type of item (optional, can be null)
-    // itemPrice = The price of the item (optional, can be null). Will be added to customer lifetime value. Try to use lowest possible unit, such as cents for US currency.
-    // attributes = Any additional attributes to attach to this event (optional, can be null)
-    public static tagPurchased(itemName?: string, itemId?: string, itemType?: string, itemPrice?: number, attributes?: plain) { throw new Error('Not yet implemented'); }
+    public static tagPurchased(itemName?: string, itemId?: string, itemType?: string, itemPrice?: number, attributes?: plain) {
+        const attr = attributes ? NSDictionary.dictionaryWithDictionary(attributes as any) : null;
+        Localytics.tagPurchasedItemIdItemTypeItemPriceAttributes(itemName, itemId, itemType, itemPrice, attr);
+    }
 
     // A standard event to tag the addition of a single item to a cart (after the action has occurred)
     // itemName = The name of the item purchased (optional, can be null)
@@ -98,12 +95,10 @@ class LocalyticsIOS extends LocalyticsDef {
     // attributes = Any additional attributes to attach to this event (optional, can be null)
     public static tagCompletedCheckout(totalPrice?: number, itemCount?: number, attributes?: plain) { throw new Error('Not yet implemented'); }
 
-    // A standard event to tag the viewing of content (after the action has occurred)
-    // contentName = The name of the content being viewed (such as article name) (optional, can be null)
-    // contentId = A unique identifier of the content being viewed (optional, can be null)
-    // contentType = The type of content (optional, can be null)
-    // attributes = Any additional attributes to attach to this event (optional, can be null)
-    public static tagContentViewed(contentName?: string, contentId?: string, contentType?: string, attributes?: plain) { throw new Error('Not yet implemented'); }
+    public static tagContentViewed(contentName?: string, contentId?: string, contentType?: string, attributes?: plain) {
+        const attr = attributes ? NSDictionary.dictionaryWithDictionary(attributes as any) : null;
+        Localytics.tagContentViewedContentIdContentTypeAttributes(contentName, contentId, contentType, attr);
+    }
 
     // A standard event to tag a search event (after the action has occurred)
     // queryText = The query user for the search (optional, can be null)
@@ -174,10 +169,9 @@ class LocalyticsIOS extends LocalyticsDef {
     // as the value of the 'Action' attribute ('Click' will be used if null).
     public static tagPlacesPushOpened(campaignId: number, action?: string) { throw new Error('Not yet implemented'); }
 
-    // Tags a screen
-    // Call this when a screen is displayed
-    // screen = screen name as a string
-    public static tagScreen(screen: string) { throw new Error('Not yet implemented'); }
+    public static tagScreen(screen: string) {
+        Localytics.tagScreen(screen);
+    }
 
     // Sets a custom dimension
     // index = dimension index as an int
@@ -234,54 +228,52 @@ class LocalyticsIOS extends LocalyticsDef {
     // scope = The scope of the attribute (app or org)
     public static deleteProfileAttribute(name: string, scope: 'app' | 'org') { throw new Error('Not yet implemented'); }
 
-    // Set customer email address
-    // email = customer email as a string (ie, "johndoe@company.com")
-    public static setCustomerEmail(email: string) { throw new Error('Not yet implemented'); }
+    public static setCustomerEmail(email: string) {
+        Localytics.setCustomerEmail(email);
+    }
 
-    // Set customer first name
-    // firstName = customer first name as a string (ie, "John")
-    public static setCustomerFirstName(firstName: string) { throw new Error('Not yet implemented'); }
+    public static setCustomerFirstName(firstName: string) {
+        Localytics.setCustomerFirstName(firstName);
+    }
 
-    // Set customer last name
-    // lastName = customer last name as a string (ie, "Doe")
-    public static setCustomerLastName(lastName: string) { throw new Error('Not yet implemented'); }
+    public static setCustomerLastName(lastName: string) {
+        Localytics.setCustomerLastName(lastName);
+    }
 
-    // Set customer full name
-    // fullName = customer full name as a string (ie, "John Doe")
-    public static setCustomerFullName(fullName: string) { throw new Error('Not yet implemented'); }
+    public static setCustomerFullName(fullName: string) {
+        Localytics.setCustomerFullName(fullName);
+    }
 
     /*******************
      * User Information
      ******************/
 
-    // Gets a custom idenitifer
-    // key = identifier name as a string
-    // value = identifier value as a string
-    // successCallback = callback function for result
-    public static getIdentifier(key: string): string { throw new Error('Not yet implemented'); }
+    public static getIdentifier(key: string): string {
+        return Localytics.valueForIdentifier(key);
+    }
 
-    // Sets a custom idenitifer
-    // key = identifier name as a string
-    // value = identifier value as a string
-    public static setIdentifier(key: string, value: string) { throw new Error('Not yet implemented'); }
+    public static setIdentifier(key: string, value: string) {
+        Localytics.setValueForIdentifier(value, key);
+    }
 
-    // Get customer ID
-    // successCallback = callback function for result
-    public static getCustomerId(): string { throw new Error('Not yet implemented'); }
+    public static getCustomerId(): string {
+        return Localytics.customerId();
+    }
 
-    // Set customer ID
-    // id = unique customer id as a string (ie, "12345")
-    public static setCustomerId(id: string) { throw new Error('Not yet implemented'); }
+    public static setCustomerId(id: string) {
+        Localytics.setCustomerId(id);
+    }
 
-    // Set customer ID and opted out status
-    // id = unique customer id as a string (ie, "12345")
-    // enabled = Privacy opt out state of user
-    public static setCustomerIdWithPrivacyOptedOut(id: string, enabled: boolean) { throw new Error('Not yet implemented'); }
+    public static setCustomerIdWithPrivacyOptedOut(id: string, enabled: boolean) {
+        Localytics.setCustomerIdPrivacyOptedOut(id, enabled);
+    }
 
-    // Set a user's location
-    // latitude = The latitude value
-    // longitude = The longitude value
-    public static setLocation(latitude: number, longitude: number) { throw new Error('Not yet implemented'); }
+    public static setLocation(latitude: number, longitude: number) {
+        const location = new CLLocationCoordinate2D();
+        location.latitude = latitude;
+        location.longitude = longitude;
+        Localytics.setLocation(location);
+    }
 
     /*******************
      * Marketing
