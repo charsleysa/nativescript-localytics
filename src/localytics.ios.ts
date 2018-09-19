@@ -11,8 +11,6 @@ import {
     MessagingListener
 } from '.';
 
-declare const Localytics: any;
-
 class LocalyticsIOS implements LocalyticsDef {
 
     /*******************
@@ -21,12 +19,12 @@ class LocalyticsIOS implements LocalyticsDef {
 
     public static integrate() {
         const appKey = NSBundle.mainBundle.objectForInfoDictionaryKey('LocalyticsAppKey');
-        Localytics.integrate(appKey);
+        Localytics.integrateWithLocalyticsOptions(appKey, null);
     }
 
     public static autoIntegrate() {
         const appKey = NSBundle.mainBundle.objectForInfoDictionaryKey('LocalyticsAppKey');
-        Localytics.autoIntegrate(appKey);
+        Localytics.autoIntegrateWithLocalyticsOptionsLaunchOptions(appKey, null, null);
     }
 
     public static upload() {
@@ -66,12 +64,12 @@ class LocalyticsIOS implements LocalyticsDef {
     }
 
     public static tagEvent(event: string, attributes?: plain, customerValueIncrease?: number) {
-        const attr = attributes ? NSDictionary.dictionaryWithDictionary(attributes as any) : null;
-        Localytics.tagEventWithEventNameAttributesCustomerValueIncrease(event, attr, customerValueIncrease);
+        const attr = attributes ? NSDictionary.dictionaryWithDictionary<string, string>(attributes as any) : null;
+        Localytics.tagEventAttributesCustomerValueIncrease(event, attr, customerValueIncrease);
     }
 
     public static tagPurchased(itemName?: string, itemId?: string, itemType?: string, itemPrice?: number, attributes?: plain) {
-        const attr = attributes ? NSDictionary.dictionaryWithDictionary(attributes as any) : null;
+        const attr = attributes ? NSDictionary.dictionaryWithDictionary<string, string>(attributes as any) : null;
         Localytics.tagPurchasedItemIdItemTypeItemPriceAttributes(itemName, itemId, itemType, itemPrice, attr);
     }
 
@@ -96,7 +94,7 @@ class LocalyticsIOS implements LocalyticsDef {
     public static tagCompletedCheckout(totalPrice?: number, itemCount?: number, attributes?: plain) { throw new Error('Not yet implemented'); }
 
     public static tagContentViewed(contentName?: string, contentId?: string, contentType?: string, attributes?: plain) {
-        const attr = attributes ? NSDictionary.dictionaryWithDictionary(attributes as any) : null;
+        const attr = attributes ? NSDictionary.dictionaryWithDictionary<string, string>(attributes as any) : null;
         Localytics.tagContentViewedContentIdContentTypeAttributes(contentName, contentId, contentType, attr);
     }
 

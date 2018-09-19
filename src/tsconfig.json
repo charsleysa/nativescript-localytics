@@ -18,8 +18,7 @@
         "noImplicitAny": true,
         "noImplicitReturns": true,
         "noImplicitUseStrict": false,
-        "noFallthroughCasesInSwitch": true,
-        "strictNullChecks": true
+        "noFallthroughCasesInSwitch": true
     },
     "exclude": [
         "node_modules"
